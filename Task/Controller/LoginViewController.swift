@@ -25,34 +25,40 @@ class LoginViewController: UIViewController {
    }
    
    @IBAction func signInBtnTapped(_ sender: Any) {
-      let loginDictionary = [
-         "email" : "Test@gmail.com",
-         "password" : "123456",
-         "deviceType":"IOS",
-         "deviceToken":"134y542jhdm65r"
-      ]
-      Service.shared.fetchGenericJSONData(urlString: API.loginUrl, parameters: loginDictionary) { (user:UserHead?, error:Error?) in
-         if error != nil{
-            showAlert(withMessage: error?.localizedDescription, viewController: self)
-            return
-         }
-         print(user?.data?.email)
-         if let user = user{
-            if let userData = user.data{
-            Defaults.saveUser(userData)
+          switch validateSignupCredentials {
+          case .valid:
+             hitLoginAPI()
+          case .invalid(let error):
+             showAlert(withMessage: error, viewController: self)
+          }
+    }
+    
+    func hitLoginAPI(){
+        let loginDictionary = [
+          "email" : emailTextField.text!,
+           "password" : passwordTextField.text!,
+           "deviceType":"IOS",
+           "deviceToken":"134y542jhdm65r"
+        ]
+        Service.shared.fetchGenericJSONData(urlString: API.loginUrl, parameters: loginDictionary) { (user:UserHead?, error) in
+           if error != ""{
+            DispatchQueue.main.async {
+                showAlert(withMessage: error, viewController: self)
             }
-         }
-      }
-      
-      
-      
-//      switch validateSignupCredentials {
-//      case .valid:
-//         moveToHomeVC()
-//      case .invalid(let error):
-//         showAlert(withMessage: error, viewController: self)
-//      }
-   }
+            return
+           }
+           print(user?.data?.email ?? "")
+           if let user = user{
+              if let userData = user.data{
+              Defaults.removeUserData()
+              Defaults.saveUser(userData)
+                DispatchQueue.main.async {
+                    self.moveToHomeVC()
+                }
+              }
+           }
+        }
+    }
    
    @IBAction func signupBtnTapped(_ sender: UIButton) {
       moveToSignupVC()
