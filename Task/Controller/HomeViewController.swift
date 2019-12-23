@@ -24,26 +24,29 @@ import UIKit
 //    status = 200;
 //}
 
+
+
 let loginWithAuthUrl = "http://3.85.133.207/celeb/loginwithAuth"
 let loginUrl = "http://3.85.133.207/celeb/login"
 let signupUrl = "http://3.85.133.207/celeb/register"
 let homeUrl = "http://3.85.133.207/celeb/viewRequests?status=1"
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
 
    override func viewDidLoad() {
       super.viewDidLoad()
+      
       
       
       postAction()
    }
 
    func postAction() {
-       let Url = String(format: homeUrl)
+       let Url = String(format: loginWithAuthUrl)
        guard let serviceUrl = URL(string: Url) else { return }
        let signupDictionary = [
          "name":"Test",
-         "email" : "Test@gmail.com",
+         "email" : "Test3@gmail.com",
          "password" : "123456",
          "mobileno":"+918919167655",
          "gender":"male",
@@ -63,14 +66,14 @@ class ViewController: UIViewController {
          "status":"1"
       ]
        var request = URLRequest(url: serviceUrl)
-       request.httpMethod = "GET"
-//      request.httpMethod = "POST"
+//       request.httpMethod = "GET"
+      request.httpMethod = "POST"
        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-       request.setValue("$2a$10$qPDuMprb1U.gXEP6hWW6wO9PyeqIW6gmNm5BFlhveEGm5ZL.NGH9.", forHTTPHeaderField: "Authorization")
-       guard let httpBody = try? JSONSerialization.data(withJSONObject: loginDictionary, options: []) else {
+       request.setValue("$2a$10$6NtL.6ufKqAd4tHrAdBj4uicn4A.OTitF5b24unZyo5tQ/O4ts05m", forHTTPHeaderField: "Authorization")
+       guard let httpBody = try? JSONSerialization.data(withJSONObject: authDictionary, options: []) else {
            return
        }
-//       request.httpBody = httpBody
+       request.httpBody = httpBody
 
        let session = URLSession.shared
        session.dataTask(with: request) { (data, response, error) in
@@ -91,27 +94,4 @@ class ViewController: UIViewController {
 }
 
 
-
-
-class Service {
-
-    static let shared = Service() // singleton
-    
-    func fetchGenericJSONData<T: Decodable>(urlString: String = "http://3.85.133.207/celeb/register", completion: @escaping (T?, Error?) -> ()) {
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, resp, err) in
-            if let err = err {
-                completion(nil, err)
-                return
-            }
-            do {
-                let objects = try JSONDecoder().decode(T.self, from: data!)
-                // success
-                completion(objects, nil)
-            } catch {
-                completion(nil, error)
-            }
-            }.resume()
-    }
-}
 
