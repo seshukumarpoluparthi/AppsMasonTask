@@ -8,6 +8,27 @@
 
 import UIKit
 
+//{
+//    data =     {
+//        authorizedToken = "$2a$10$OKYJcHK3Fp0bqOpL7y6LwuUrPCdJxUAOzneIXpCzuDAfTSuw1yXQe";
+//        country = India;
+//        deviceToken = 134y542jhdm65r;
+//        deviceType = IOS;
+//        email = "Test@gmail.com";
+//        gender = male;
+//        lastLogin = "2019-12-23T07:18:21.816Z";
+//        mobile = "+918919167655";
+//        name = Test;
+//        twitterID = "<null>";
+//    };
+//    status = 200;
+//}
+
+let loginWithAuthUrl = "http://3.85.133.207/celeb/loginwithAuth"
+let loginUrl = "http://3.85.133.207/celeb/login"
+let signupUrl = "http://3.85.133.207/celeb/register"
+let homeUrl = "http://3.85.133.207/celeb/viewRequests?status=1"
+
 class ViewController: UIViewController {
 
    override func viewDidLoad() {
@@ -18,9 +39,9 @@ class ViewController: UIViewController {
    }
 
    func postAction() {
-       let Url = String(format: "http://3.85.133.207/celeb/login")
+       let Url = String(format: homeUrl)
        guard let serviceUrl = URL(string: Url) else { return }
-       let parameterDictionary = [
+       let signupDictionary = [
          "name":"Test",
          "email" : "Test@gmail.com",
          "password" : "123456",
@@ -28,24 +49,32 @@ class ViewController: UIViewController {
          "gender":"male",
          "country":"India"
       ]
-      let parametersDictionary = [
+      let loginDictionary = [
               "email" : "Test@gmail.com",
               "password" : "123456",
               "deviceType":"IOS",
               "deviceToken":"134y542jhdm65r"
            ]
+      let authDictionary = [
+         "deviceType":"IOS",
+         "deviceToken":"134y542jhdm65r"
+      ]
+      let homeDictionary = [
+         "status":"1"
+      ]
        var request = URLRequest(url: serviceUrl)
-       request.httpMethod = "POST"
+       request.httpMethod = "GET"
        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-       guard let httpBody = try? JSONSerialization.data(withJSONObject: parametersDictionary, options: []) else {
+       request.setValue("$2a$10$OKYJcHK3Fp0bqOpL7y6LwuUrPCdJxUAOzneIXpCzuDAfTSuw1yXQe", forHTTPHeaderField: "Authorization")
+       guard let httpBody = try? JSONSerialization.data(withJSONObject: homeDictionary, options: []) else {
            return
        }
-       request.httpBody = httpBody
+//       request.httpBody = httpBody
 
        let session = URLSession.shared
        session.dataTask(with: request) { (data, response, error) in
            if let response = response {
-               print(response)
+//               print(response)
            }
            if let data = data {
                do {
