@@ -24,6 +24,8 @@
 		367AFC4523B0D8C50059F6F1 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AFC4423B0D8C50059F6F1 /* ATButton.swift */; };
 		367AFC4723B0DCD30059F6F1 /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AFC4623B0DCD30059F6F1 /* String+Validation.swift */; };
 		367AFC4923B0E5550059F6F1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367AFC4823B0E5550059F6F1 /* NetworkManager.swift */; };
+		966C34BC23B10467006DC3B4 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C34BB23B10467006DC3B4 /* HomeTableViewCell.swift */; };
+		966C34BE23B10630006DC3B4 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C34BD23B10630006DC3B4 /* UIButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		367AFC4423B0D8C50059F6F1 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
 		367AFC4623B0DCD30059F6F1 /* String+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validation.swift"; sourceTree = "<group>"; };
 		367AFC4823B0E5550059F6F1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		966C34BB23B10467006DC3B4 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		966C34BD23B10630006DC3B4 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 		367AFC2D23B0D0D10059F6F1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				966C34BB23B10467006DC3B4 /* HomeTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				367AFC4423B0D8C50059F6F1 /* ATButton.swift */,
+				966C34BD23B10630006DC3B4 /* UIButton.swift */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -238,9 +244,11 @@
 				367AFC3723B0D1C70059F6F1 /* LoginViewController.swift in Sources */,
 				367AFC3C23B0D2AF0059F6F1 /* UITableViewCell.swift in Sources */,
 				367AFC3E23B0D5070059F6F1 /* UIViewController.swift in Sources */,
+				966C34BE23B10630006DC3B4 /* UIButton.swift in Sources */,
 				367AFC4723B0DCD30059F6F1 /* String+Validation.swift in Sources */,
 				367AFC3923B0D1CF0059F6F1 /* SignupViewController.swift in Sources */,
 				367AFC1D23B0A3850059F6F1 /* HomeViewController.swift in Sources */,
+				966C34BC23B10467006DC3B4 /* HomeTableViewCell.swift in Sources */,
 				367AFC1923B0A3850059F6F1 /* AppDelegate.swift in Sources */,
 				367AFC4523B0D8C50059F6F1 /* ATButton.swift in Sources */,
 				367AFC1B23B0A3850059F6F1 /* SceneDelegate.swift in Sources */,
