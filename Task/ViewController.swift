@@ -64,9 +64,10 @@ class ViewController: UIViewController {
       ]
        var request = URLRequest(url: serviceUrl)
        request.httpMethod = "GET"
+//      request.httpMethod = "POST"
        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-       request.setValue("$2a$10$OKYJcHK3Fp0bqOpL7y6LwuUrPCdJxUAOzneIXpCzuDAfTSuw1yXQe", forHTTPHeaderField: "Authorization")
-       guard let httpBody = try? JSONSerialization.data(withJSONObject: homeDictionary, options: []) else {
+       request.setValue("$2a$10$qPDuMprb1U.gXEP6hWW6wO9PyeqIW6gmNm5BFlhveEGm5ZL.NGH9.", forHTTPHeaderField: "Authorization")
+       guard let httpBody = try? JSONSerialization.data(withJSONObject: loginDictionary, options: []) else {
            return
        }
 //       request.httpBody = httpBody
