@@ -34,6 +34,7 @@ class LoginViewController: UIViewController {
     }
     
     func hitLoginAPI(){
+        startActivityIndicator()
         let loginDictionary = [
           "email" : emailTextField.text!,
            "password" : passwordTextField.text!,
@@ -41,8 +42,10 @@ class LoginViewController: UIViewController {
            "deviceToken":"134y542jhdm65r"
         ]
         Service.shared.fetchGenericJSONData(urlString: API.loginUrl, parameters: loginDictionary) { (user:UserHead?, error) in
+            
            if error != ""{
             DispatchQueue.main.async {
+                self.stopActivityIndicator()
                 showAlert(withMessage: error, viewController: self)
             }
             return
@@ -50,9 +53,10 @@ class LoginViewController: UIViewController {
            print(user?.data?.email ?? "")
            if let user = user{
               if let userData = user.data{
-              Defaults.removeUserData()
-              Defaults.saveUser(userData)
+              Defaults.removeAccessToken()
+                Defaults.saveAccessToken(accessToken: userData.authorizedToken)
                 DispatchQueue.main.async {
+                    self.stopActivityIndicator()
                     self.moveToHomeVC()
                 }
               }

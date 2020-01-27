@@ -14,12 +14,14 @@ class HomeViewController: UIViewController {
     
    override func viewDidLoad() {
     super.viewDidLoad()
-    
-    
+    setupUI()
    }
     
     func setupUI(){
         tableView.tableFooterView = .init()
+//        Service.shared.fetchGenericJSONData(urlString: API.homeUrl, parameters: [:], httpMethod: .get) { (user:UserHead?, err) in
+//            print(user)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

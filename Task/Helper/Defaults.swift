@@ -43,4 +43,20 @@ struct Defaults {
         userDefaults.synchronize()
     }
     
+    static func removeAccessToken() {
+        userDefaults.removeObject(forKey: "accessToken")
+    }
+    
+    static func saveAccessToken(accessToken:String) {
+        userDefaults.set(accessToken, forKey: "accessToken")
+    }
+    
+    static var getAccessToken:String{
+        if let token = userDefaults.value(forKey: "accessToken") as? String{
+            return token
+        }else{
+            return ""
+        }
+    }
+    
 }

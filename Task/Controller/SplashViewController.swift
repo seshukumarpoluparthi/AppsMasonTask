@@ -12,7 +12,7 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let accessToken = Defaults.user.authorizedToken
+        let accessToken = Defaults.getAccessToken
         if accessToken != "" {
             print(accessToken)
             setupUI()
@@ -23,18 +23,31 @@ class SplashViewController: UIViewController {
     
     
     func setupUI(){
+        self.startActivityIndicator()
         let authDictionary = [
             "deviceType":"IOS",
             "deviceToken":"134y542jhdm65r"
         ]
         Service.shared.fetchGenericJSONData(urlString: API.loginWithAuthUrl, parameters: authDictionary) { (user:UserHead?, error) in
             if error != ""{
-                showAlert(withMessage: error, viewController: self)
+                DispatchQueue.main.async {
+                    self.stopActivityIndicator()
+                    showAlert(withMessage: error, viewController: self)
+                }
                 return
             }
-            print(user)
-            DispatchQueue.main.async {
-                self.moveToHome()
+            print(user?.data?.email ?? "")
+            if let user = user{
+               if let userData = user.data{
+//               Defaults.removeUserData()
+//               Defaults.saveUser(userData)
+                Defaults.removeAccessToken()
+                Defaults.saveAccessToken(accessToken: userData.authorizedToken)
+                DispatchQueue.main.async {
+                    self.stopActivityIndicator()
+                    self.moveToHome()
+                }
+               }
             }
         }
     }

@@ -29,10 +29,9 @@ class Service {
         completion: @escaping (T?, String) -> ()
     ) {
         var request = URLRequest(url: URL(string: urlString)!)
-        //             request.httpMethod = "GET"
         request.httpMethod = httpMethod.rawValue
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-        let accessToken = Defaults.user.authorizedToken
+        let accessToken = Defaults.getAccessToken
         if accessToken != "" {
             print(accessToken)
             request.setValue(accessToken, forHTTPHeaderField: "Authorization")
@@ -40,7 +39,9 @@ class Service {
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
             return
         }
-        request.httpBody = httpBody
+        if httpMethod != .get{
+            request.httpBody = httpBody
+        }
         URLSession.shared.dataTask(with: request) { (data, resp, err) in
             if let err = err {
                 completion(nil, err.localizedDescription)
@@ -57,7 +58,7 @@ class Service {
                         completion(nil, error)
                     }
                 }
-              return
+                return
             }
             do {
                 let objects = try JSONDecoder().decode(T.self, from: data!)

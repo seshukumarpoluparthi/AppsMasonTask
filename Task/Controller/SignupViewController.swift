@@ -33,6 +33,7 @@ class SignupViewController: UIViewController {
     }
     
     func signupUser(){
+        self.startActivityIndicator()
         let signupDictionary = [
             "name":nameTextField.text!,
             "email" : emailTextField.text!,
@@ -44,11 +45,13 @@ class SignupViewController: UIViewController {
         Service.shared.fetchGenericJSONData(urlString: API.signupUrl, parameters: signupDictionary) { (response:SignupHead?, error) in
             if error != ""{
                 DispatchQueue.main.async {
+                    self.stopActivityIndicator()
                     showAlert(withMessage: error, viewController: self)
                 }
                 return
             }
             DispatchQueue.main.async {
+                self.stopActivityIndicator()
                 self.moveToLoginVC()
             }
         }
